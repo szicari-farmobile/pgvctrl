@@ -4,7 +4,12 @@ Database **dbvctrl** is a tool designed to help deploy changes to postgres datab
 
 ## Prerequisites:
 1. [postgres](https://www.postgresql.org/) ;)
-2. A general knowledge of postgres sql. [tutorial](http://www.postgresqltutorial.com/)
+    
+    **NOTE**: The postgres command line tools *must* be available in your PATH!
+
+1. A general knowledge of postgres sql. [tutorial](http://www.postgresqltutorial.com/)
+
+1. Python3!
 
 ## Getting started:
 
@@ -47,8 +52,18 @@ Tests? Yeah, those are coming.
 
     __What just happened?__<br />
     After initialization is complete:
-    * There will be a folder structure: [my dir]/databases/[repository name]/0.0/ created.
-    This will be the location where you should but your sql update files.
+    * There will be a folder structure:
+
+        ```bash
+        .
+        ├── databases
+        │   └── test
+        │       └── 0.0.gettingStarted
+        └── dbRepoConfig.json
+        ```
+
+    This will be the location where you should put your sql update files.
+
     * There will be a new table in your database named repository_version.
       This is where pbvctrl stores your repository name and version number with a
        version hash for each sql update file.
@@ -59,16 +74,20 @@ Tests? Yeah, those are coming.
   e.g.: 100.AddedUserTable.sql
 
 1. List repositories and changes:
-    <pre>pgvctrl -repolist</pre>
-    Output:
-    <pre>mydb</pre>
+
+    ```bash
+    $ pgvctrl -repolist
+    mydb
+    ```
 
     Verbose:
-    <pre>pgvctrl -repolist -verbose</pre>
-    Output:
-    <pre>mydb
+
+    ```bash
+    $ pgvctrl -repolist -verbose
+    mydb
         v 0.0
-            100 AddUsersTable</pre>
+            100 AddUsersTable
+    ```
 
 1. When you are ready to apply your changes to your database:
     <pre>pgvctrl -apply -v [version number] -repo [repository name] [db connection information]</pre>
